@@ -1,0 +1,11 @@
+<?php
+require_once __DIR__ . '/../Autoload.php';
+/**
+ * Starting point for development
+ * 
+ * 
+ * 
+ * Here is where we can start writing dev POCs and proof files
+ * 
+ * 
+ */
