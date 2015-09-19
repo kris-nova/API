@@ -1,6 +1,6 @@
 # API
 
-The public facing API application
+The public facing API
 
 Install
 =====
