@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../Autoload.php';
 /**
  * Starting point for development
  * 
@@ -9,3 +8,4 @@ require_once __DIR__ . '/../Autoload.php';
  * 
  * 
  */
+require_once __DIR__ . '/../Autoload.php';
