@@ -1,4 +1,4 @@
 API/src/Request
 ===
 
-Logic for all incoming requests
+Logic for HTTPs Requests

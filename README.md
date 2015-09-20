@@ -16,3 +16,15 @@ Install
  - Grab a cup of coffee - this takes a while
  - `vagrant ssh` to access the server
  
+Request Life Cycle
+=====
+ - Single include in /app for all the endpoints
+ - Include will 
+ 	- Determine body type
+ 	- Load meta
+ 	- Auth
+ 	- Build request object
+ 	- Process request object
+ 	- Encode response object
+ 	- Return response string
+ - Log transaction

@@ -1,6 +1,9 @@
 <?php
 namespace API;
 
+require_once __DIR__ . '/src/Framework/Functions.php';
+require_once __DIR__ . '/src/Framework/Constants.php';
+
 /**
  *
  * The main Autoloader that ties all the things together
@@ -14,9 +17,30 @@ class Autoloader
 
     /**
      *
+     * @var string
+     */
+    public static $root;
+
+    /**
+     *
+     * @var string
+     */
+    const REPOSITORY_NAME = 'API';
+
+    /**
+     *
      * @var Instance
      */
     protected static $instance;
+
+    /**
+     * Extensions to Autoload
+     *
+     * @var array
+     */
+    protected $extensions = array(
+        '.php'
+    );
 
     /**
      * Static function to build the Autoloader
@@ -24,6 +48,7 @@ class Autoloader
      */
     static public function build($argv)
     {
+        static::$root = __DIR__;
         static::$instance = new self($argv);
     }
 
@@ -47,8 +72,24 @@ class Autoloader
      */
     protected function autoload($class)
     {
-        print_r($class);
-        die();
+        $root = Autoloader::$root;
+        $len = strlen(Autoloader::REPOSITORY_NAME);
+        $classPath = substr($class, $len);
+        $included = false;
+        foreach ($this->extensions as $key => $ext) {
+            $fullClassPath = $root . str_replace('\\', '/', $classPath) . $ext;
+            if (file_exists($fullClassPath)) {
+                $included = true;
+                require_once $fullClassPath;
+            }
+        }
+        if ($included) {
+            // Silently win
+            return true;
+        } else {
+            die('Invalid filename ' . $class . '. Epic failure in Autoloader'.PHP_EOL);
+            return false;
+        }
     }
 }
 
