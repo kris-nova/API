@@ -31,7 +31,7 @@ class Request
 
     public $isAuthenticated = null;
 
-    public $endPoint = null;
+    public $endpoint = null;
 
     public $verb = null;
     
