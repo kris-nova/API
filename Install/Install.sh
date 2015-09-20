@@ -45,6 +45,7 @@ else
 	make
 	make install
 fi
+yum install -y mod_php
 echo '...done'
 
 ##
