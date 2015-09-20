@@ -3,6 +3,7 @@ namespace API\src\Endpoints\Auth;
 
 use API\src\Endpoints\Endpoints;
 use API\src\Request\Request;
+use API\src\Error\Error;
 
 
 class Login extends Endpoints
@@ -17,26 +18,22 @@ class Login extends Endpoints
 
     public function get()
     {
-        //
+        Error::throwApiException('GET operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function post()
     {
-        //
+        Error::throwApiException('POST operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function put()
     {
-        //
+        Error::throwApiException('GET operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function delete()
     {
-        //
-    }
-
-    public function run(){
-        //
+        Error::throwApiException('DELETE operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function getResponse()

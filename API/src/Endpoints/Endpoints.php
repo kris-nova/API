@@ -51,7 +51,21 @@ class Endpoints implements EndpointsInterface
      * @see \API\src\Endpoints\EndpointsInterface::run()
      */
     public function run(){
-        //
+        $verb = $this->request->verb;
+        switch($verb){
+            case v_get:
+                $this->get();
+                break;
+            case v_post:
+                $this->post();
+                break;
+            case v_put:
+                $this->put();
+                break;
+            case v_delete:
+                $this->delete();
+                break;
+        }
     }
 
     /**
