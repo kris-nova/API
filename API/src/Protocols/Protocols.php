@@ -16,6 +16,9 @@ class Protocols
      */
     static public function getProtocol()
     {
-        //
+        if(isset($_SERVER['HTTPS'])){
+            return p_https;
+        }
+        return p_http;
     }
 }

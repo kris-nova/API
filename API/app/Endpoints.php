@@ -4,6 +4,7 @@ namespace API\app;
 require_once __DIR__ . '/../Autoload.php';
 
 use API\src\Request\Request;
+use \Exception as Exception;
 
 /**
  * All requests are born here
@@ -31,7 +32,14 @@ class Endpoints
 
     public function runBuildRequest()
     {
-        $request = new Request();
+        try {
+            $this->request = new Request();
+            $this->request->process();
+        } catch (Exception $e) {
+            //
+            print_r($e);
+            die('FUCKERY LOGGERY SUCK BAWLS..' . PHP_EOL);
+        }
     }
 
     /**

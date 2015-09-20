@@ -49,8 +49,8 @@ define('s_complete', 5);
  * 
  * The protocol the request was sent on
  */
-define('p_http', 'HTTP');
-define('p_https', 'HTTPS');
+define('p_http', 0);
+define('p_https', 1);
 
 
 /******************************************************************************
