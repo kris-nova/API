@@ -1,5 +1,6 @@
 <?php
 namespace API\app;
+
 require_once __DIR__ . '/../Autoload.php';
 
 use API\src\Request\Request;
@@ -21,17 +22,17 @@ use API\src\Request\Request;
  */
 class Endpoints
 {
-    
+
     /**
-     * 
+     *
      * @var Request
      */
     protected $request = null;
-    
-    public function runBuildRequest(){
+
+    public function runBuildRequest()
+    {
         $request = new Request();
     }
-    
 
     /**
      * This really should be a trait.
@@ -55,4 +56,5 @@ class Endpoints
         }
     }
 }
+/* One bootstrap to rule them all */
 Endpoints::run();
