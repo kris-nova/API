@@ -36,9 +36,10 @@ class CreateNewEndPoint
         /* Write src endpoint */
         echo 'Writing src endpoint..' . PHP_EOL;
         $srcContent = file_get_contents(__DIR__ . '/DefaultContent/SrcEndpoint');
-        $srcContent = str_replace('<<ENDPOINT>>', $endpoint, $srcContent);
+        $inc = array_pop($exp);
+        $srcContent = str_replace('<<INC>>', $inc, $srcContent);
         $srcContent = str_replace('<<CLASS>>', $class, $srcContent);
-        $srcFileToWrite = __DIR__.'/../API/src/Endpoints/'.str_replace('\\','/',$endpoint).'/'.$class.'.php';
+        $srcFileToWrite = __DIR__.'/../API/src/Endpoints/'.str_replace('\\','/',$endpoint).'.php';
         @mkdir(dirname($srcFileToWrite), '0644', 1);
         file_put_contents($srcFileToWrite, $srcContent);
         

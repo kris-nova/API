@@ -53,7 +53,7 @@ class Transaction
         $this->date = date('mdy');
         $this->transactionDirectory = Config::getConfig('TransactionDirectory') . '/' . $this->date;
         if (! file_exists($this->transactionDirectory)) {
-            mkdir($this->transactionDirectory, 0644, 1);
+            mkdir($this->transactionDirectory, 0744, 1);
         }
         $bytesWritten = $this->build();
     }

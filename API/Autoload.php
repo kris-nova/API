@@ -46,10 +46,10 @@ class Autoloader
      * Static function to build the Autoloader
      * Static factory
      */
-    static public function build($argv)
+    static public function build()
     {
         static::$root = __DIR__;
-        static::$instance = new self($argv);
+        static::$instance = new self();
     }
 
     /**
@@ -57,7 +57,7 @@ class Autoloader
      *
      * @param array $argv            
      */
-    public function __construct($argv = array())
+    public function __construct()
     {
         spl_autoload_register(array(
             $this,
@@ -72,6 +72,7 @@ class Autoloader
      */
     protected function autoload($class)
     {
+        // echo $class.PHP_EOL;
         $root = Autoloader::$root;
         $len = strlen(Autoloader::REPOSITORY_NAME);
         $classPath = substr($class, $len);
@@ -87,7 +88,7 @@ class Autoloader
             // Silently win
             return true;
         } else {
-            die('Invalid filename ' . $class . '. Epic failure in Autoloader'.PHP_EOL);
+            die('Invalid filename ' . $class . '. Epic failure in Autoloader' . PHP_EOL);
             return false;
         }
     }
@@ -96,4 +97,4 @@ class Autoloader
 /**
  * Bootstrap
  */
-Autoloader::build($argv); //Where all the things begin
+Autoloader::build(); //Where all the things begin

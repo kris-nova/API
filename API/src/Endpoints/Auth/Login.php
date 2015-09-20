@@ -1,11 +1,13 @@
 <?php
-namespace API\src\Endpoints\Auth\Login;
+namespace API\src\Endpoints\Auth;
 
 use API\src\Endpoints\Endpoints;
+use API\src\Request\Request;
+
 
 class Login extends Endpoints
 {
-
+	
     public $request;
 
     public function __construct(Request $request)

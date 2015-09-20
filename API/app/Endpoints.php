@@ -35,10 +35,11 @@ class Endpoints
         try {
             $this->request = new Request();
             $this->request->process();
+            print_r($this->request);
+            die;
         } catch (Exception $e) {
             //
             print_r($e);
-            die('FUCKERY LOGGERY SUCK BAWLS..' . PHP_EOL);
         }
     }
 

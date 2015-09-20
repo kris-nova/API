@@ -1,11 +1,13 @@
 <?php
-namespace API\src\Endpoints\<<ENDPOINT>>;
+namespace API\src\Endpoints\<<INC>>;
 
 use API\src\Endpoints\Endpoints;
+use API\src\Request\Request;
+
 
 class <<CLASS>> extends Endpoints
 {
-
+	
     public $request;
 
     public function __construct(Request $request)

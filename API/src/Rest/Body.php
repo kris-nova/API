@@ -2,6 +2,7 @@
 namespace API\src\Rest;
 
 use API\src\Error\Error;
+
 /**
  *
  * Body class
@@ -23,13 +24,13 @@ class Body
     {
         switch (Verbs::getVerb()) {
             case v_get:
-                return null;
+                return - 1;
             case v_post:
                 return file_get_contents('php://input');
             case v_put:
-                die('undef..<');
+                return file_get_contents('php://input');
             case v_delete:
-                die('undef..<');
+                return file_get_contents('php://input');
         }
     }
 
@@ -40,6 +41,9 @@ class Body
      */
     static public function getType()
     {
+        if (Verbs::getVerb() == v_get) {
+            return - 1;
+        }
         $body = Body::getBody();
         $possibleJson = json_decode($body);
         if ($possibleJson) {

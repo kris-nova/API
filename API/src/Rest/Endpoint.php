@@ -1,15 +1,27 @@
 <?php
-
 namespace API\src\Rest;
 
-class Endpoint {
-    
-    static public function getEndpoint(){
+/**
+ *
+ * Commonly used endpoint logic
+ *
+ * Sep 20, 2015
+ *
+ * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
+ */
+class Endpoint
+{
+
+    /**
+     * What is the endpoint for the request
+     *
+     * @return string
+     */
+    static public function getEndpoint()
+    {
         $file = $_SERVER['SCRIPT_FILENAME'];
         $endpoint = str_replace('/index.php', '', $file);
         $epExp = explode('Endpoints/', $endpoint);
-        print_r($epExp[1]);
-        die;
+        return $epExp[1];
     }
-    
 }
