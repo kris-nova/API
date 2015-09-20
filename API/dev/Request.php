@@ -14,7 +14,6 @@ $request = new Request();
 $request->body = '{}';
 $request->protocol = p_http;
 $request->status = s_new;
-$request->transactionId = uniqid();
 $request->isAuthenticated = true;
 $request->type = t_json;
 $request->headers = array();

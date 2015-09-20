@@ -14,7 +14,9 @@ use API\src\Error\Error;
  */
 class Request
 {
-
+    
+    public $id = null;
+    
     public $protocol = null;
 
     public $type = null;
@@ -25,13 +27,17 @@ class Request
 
     public $status = null;
 
-    public $transactionId = null;
+    public $transaction = null;
 
     public $isAuthenticated = null;
 
     public $endPoint = null;
 
     public $verb = null;
+    
+    public function __construct(){
+        $this->id = uniqid();
+    }
 
     /**
      * Process the request

@@ -70,7 +70,7 @@ class Config
         $string = null;
         $files = scandir(Autoloader::$root . '/cfg');
         foreach ($files as $file) {
-            if (strpos($file, 'ini') !== false) {
+            if (strpos($file, '.conf') !== false) {
                 $workingPath = Autoloader::$root . '/cfg/' . $file;
                 $string .= file_get_contents($workingPath) . PHP_EOL;
             }
