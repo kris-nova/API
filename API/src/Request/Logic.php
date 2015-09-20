@@ -2,15 +2,25 @@
 namespace API\src\Request;
 
 use API\src\Config\Config;
+use API\Autoloader;
 
-
+/**
+ * 
+ *
+ *
+ * Sep 20, 2015
+ * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
+ */
 class Logic
 {
     /**
-     * 
+     * Logic for autoloading classes by the naming convention in Endpoints
      */
     public function runClassByRequest(){
-        
+        $fullClassPath = 'API/src/Endpoints/'.$this->request->endpoint;
+        $fullClassName = str_replace('/', '\\', $fullClassPath);
+        $class = new $fullClassName($this->request);
+        $class->run();
     }
     
     /**

@@ -17,7 +17,7 @@ $request->status = s_new;
 $request->isAuthenticated = true;
 $request->type = t_json;
 $request->headers = array();
-$request->endPoint = 'Auth/Login';
+$request->endpoint = 'Auth/Login';
 $request->verb = v_post;
 
 /*

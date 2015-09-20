@@ -1,0 +1,44 @@
+<?php
+namespace API\src\Endpoints\<<ENDPOINT>>;
+
+use API\src\Endpoints\Endpoints;
+
+class <<CLASS>> extends Endpoints
+{
+
+    public $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function get()
+    {
+        //
+    }
+
+    public function post()
+    {
+        //
+    }
+
+    public function put()
+    {
+        //
+    }
+
+    public function delete()
+    {
+        //
+    }
+
+    public function run(){
+        //
+    }
+
+    public function getResponse()
+    {
+        //
+    }
+}

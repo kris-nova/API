@@ -7,6 +7,9 @@ use API\src\Error\Error;
 /**
  * All HTTP(s) requests should be transformed into this
  *
+ * This should build itself on instantiation
+ *
+ * Validation will handle any errors
  *
  * Sep 19, 2015
  *
@@ -14,9 +17,9 @@ use API\src\Error\Error;
  */
 class Request
 {
-    
+
     public $id = null;
-    
+
     public $protocol = null;
 
     public $type = null;
@@ -31,12 +34,16 @@ class Request
 
     public $isAuthenticated = null;
 
-    public $endPoint = null;
+    public $endpoint = null;
 
     public $verb = null;
-    
-    public function __construct(){
+
+    /**
+     */
+    public function __construct()
+    {
         $this->id = uniqid();
+        
     }
 
     /**
@@ -46,5 +53,4 @@ class Request
     {
         Process::run($this);
     }
-
 }
