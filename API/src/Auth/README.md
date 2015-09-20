@@ -1,4 +1,3 @@
 API/src/Auth
 ===
-
-Because security
+ - Because security

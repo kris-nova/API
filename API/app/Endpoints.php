@@ -30,6 +30,9 @@ class Endpoints
      */
     protected $request = null;
 
+    /**
+     * Will run the request
+     */
     public function runBuildRequest()
     {
         try {

@@ -1,4 +1,3 @@
 API/src/Rest
 ===
-
-Logic for the Rest paradigm
+ - HTTP(s) and REST paradigm logic

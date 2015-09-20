@@ -1,4 +1,3 @@
 API/src/Error
 ===
-
-Logic for error handling tools
+ - Commonly used error handling methods

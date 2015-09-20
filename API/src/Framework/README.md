@@ -1,4 +1,4 @@
 API/src/Framework
 ===
-
-Things that make the framework work
+ - Constant Definitons
+ - Global Functions

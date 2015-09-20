@@ -5,7 +5,7 @@ use \Exception as Exception;
 
 /**
  * This is what happens when a request fails validation
- *
+ * 
  * Sep 19, 2015
  *
  * @author Kris Nova <kris@nivenly.com> github.com/kris-nova

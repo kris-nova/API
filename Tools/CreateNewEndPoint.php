@@ -4,7 +4,9 @@
  * Really simple class for building new files
  * 
  * Because I am lazy and stuff
- *
+ * 
+ * Really, I think the code here speaks to that
+ * 
  * Sep 20, 2015
  * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
  */
@@ -39,7 +41,7 @@ class CreateNewEndPoint
         $inc = array_pop($exp);
         $srcContent = str_replace('<<INC>>', $inc, $srcContent);
         $srcContent = str_replace('<<CLASS>>', $class, $srcContent);
-        $srcFileToWrite = __DIR__.'/../API/src/Endpoints/'.str_replace('\\','/',$endpoint).'.php';
+        $srcFileToWrite = __DIR__ . '/../API/src/Endpoints/' . str_replace('\\', '/', $endpoint) . '.php';
         @mkdir(dirname($srcFileToWrite), '0644', 1);
         file_put_contents($srcFileToWrite, $srcContent);
         

@@ -16,3 +16,6 @@ Install
  - Grab a cup of coffee - this takes a while
  - `vagrant ssh` to access the server
  
+New Endpoints
+=====
+ - php CreateNewEndpoint.php My/Great/Endpoint

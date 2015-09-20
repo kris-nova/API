@@ -1,6 +1,9 @@
 <?php
 namespace API;
 
+/**
+ * Framework magic
+ */
 require_once __DIR__ . '/src/Framework/Functions.php';
 require_once __DIR__ . '/src/Framework/Constants.php';
 
@@ -16,22 +19,25 @@ class Autoloader
 {
 
     /**
+     * The root directory
      *
      * @var string
      */
     public static $root;
 
     /**
+     * What have we called the repo
      *
      * @var string
      */
     const REPOSITORY_NAME = 'API';
 
     /**
+     * Static instance memory pointer
      *
      * @var Instance
      */
-    protected static $instance;
+    protected static $instance = false;
 
     /**
      * Extensions to Autoload
@@ -49,7 +55,10 @@ class Autoloader
     static public function build()
     {
         static::$root = __DIR__;
-        static::$instance = new self();
+        if (! static::$instance) {
+            static::$instance = new self();
+        }
+        return true;
     }
 
     /**
@@ -85,9 +94,10 @@ class Autoloader
             }
         }
         if ($included) {
-            // Silently win
+            /* Silently win */
             return true;
         } else {
+            /* We might want to make this better */
             die('Invalid filename ' . $class . '. Epic failure in Autoloader' . PHP_EOL);
             return false;
         }

@@ -1,4 +1,3 @@
 API/src/Request
 ===
-
-Logic for HTTPs Requests
+ - All of the things for a request

@@ -18,22 +18,22 @@ class Login extends Endpoints
 
     public function get()
     {
-        Error::throwApiException('GET operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
+        Error::throwApiException('`GET` operations are not currently supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function post()
     {
-        Error::throwApiException('POST operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
+        Error::throwApiException('`POST` operations are not currently supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function put()
     {
-        Error::throwApiException('GET operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
+        Error::throwApiException('`GET` operations are not currently supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function delete()
     {
-        Error::throwApiException('DELETE operations are not supported for the endpoint '.$this->request->endpoint, r_missing);
+        Error::throwApiException('`DELETE` operations are not currently supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function getResponse()

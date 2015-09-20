@@ -1,4 +1,6 @@
 API/app
 ===
 
-This is the acutal application and runtime logic
+ - Endpoints
+ - Runtime logic and src launching
+ - "The App"

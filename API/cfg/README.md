@@ -1,8 +1,9 @@
 API/cfg
 ===
-
-All files in this (non recursive) directory with the .conf extension 
-will be parsed for configuration values.
-
-Please don't commit private config!
-
+ - All files with the .conf extensions will be parsed
+ - All duplicate keys will be OVERWRITTEN by the last file alphabetically
+ 	- a.key = 1
+ 	- b.key = 2
+ 	- z.key = 3
+ 	- Will yield key (3)
+ 

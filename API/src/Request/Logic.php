@@ -5,46 +5,53 @@ use API\src\Config\Config;
 use API\Autoloader;
 
 /**
- * 
  *
+ * This is the class that handles request logic
+ * 
+ * Should call the endpoint class accordingly
  *
  * Sep 20, 2015
+ * 
  * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
  */
 class Logic
 {
+
     /**
      * Logic for autoloading classes by the naming convention in Endpoints
+     *
+     * Here be dragons
      */
-    public function runClassByRequest(){
-        $fullClassPath = 'API/src/Endpoints/'.$this->request->endpoint;
+    public function runClassByRequest()
+    {
+        $fullClassPath = 'API/src/Endpoints/' . $this->request->endpoint;
         $fullClassName = str_replace('/', '\\', $fullClassPath);
         $class = new $fullClassName($this->request);
         $class->run();
     }
-    
+
     /**
      *
      * @var Request;
      */
     protected $request = null;
-    
+
     /**
      *
-     * @param Request $request
+     * @param Request $request            
      */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
-    
+
     /**
      * The static method to handle :
      * - Dependency injection
      * - Instance factory
      * - Applied procedural function handling
      *
-     * @param Request $request
+     * @param Request $request            
      */
     static public function run(Request $request)
     {

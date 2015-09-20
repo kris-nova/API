@@ -4,7 +4,7 @@ namespace API\src\Config;
 use API\Autoloader;
 
 /**
- * Will parse all INI files in /cfg
+ * Will parse all .conf files in /cfg
  *
  * Sep 19, 2015
  *
@@ -61,7 +61,7 @@ class Config
     }
 
     /**
-     * Will return the string of all ini files in /cfg
+     * Will return the string of all .conf files in /cfg
      *
      * @return string
      */

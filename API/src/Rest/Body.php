@@ -7,7 +7,7 @@ use API\src\Error\Error;
  *
  * Body class
  *
- * <<THIS NEEDS EPIC WORK>>
+ * This needs caching and major type handling
  *
  *
  * Sep 20, 2015

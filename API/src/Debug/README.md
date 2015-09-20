@@ -1,4 +1,4 @@
 API/src/Debug
 ===
-
-Logic for handy debugging tools
+ - What happens when something goes wrong?
+ - This is the future place for debuggery tools

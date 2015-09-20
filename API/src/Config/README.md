@@ -1,4 +1,3 @@
 API/src/Config
 ===
-
-Logic for config file parsing and runtime operations
+ - Logic to handle loading config into memory

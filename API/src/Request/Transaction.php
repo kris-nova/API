@@ -28,16 +28,50 @@ use API\src\Config\Config;
 class Transaction
 {
 
+    /**
+     * Microtime when the request transaction object was built
+     *
+     * @var float
+     */
     public $startTime = null;
 
+    /**
+     * The actualy request object
+     * This will be used to rebuild from transactions in case of major fault
+     * DO NOT TOUCH
+     *
+     * @var Request
+     */
     public $request = null;
 
+    /**
+     * Same as request ID
+     * Just used for data repair
+     *
+     * @var string
+     */
     public $id = null;
 
+    /**
+     * The date (folder name) this transaction was stored in
+     *
+     * @var string
+     */
     public $date = null;
 
+    /**
+     * Where does our configuration tell us to save these
+     *
+     * @var string
+     */
     public $transactionDirectory;
 
+    /**
+     * Easter egg found!
+     * All transactions will have this extension appended to their name
+     *
+     * @var string
+     */
     const TRANSACTION_EXTENSION = '.trans'; // Kris >.>
     
     /**
@@ -71,6 +105,8 @@ class Transaction
 
     /**
      * Unlinks the transaction from disk
+     * 
+     * @return bool
      */
     public function destroy()
     {
