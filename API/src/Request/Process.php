@@ -34,11 +34,40 @@ class Process
     }
 
     /**
+     * Yes.
+     * I am writing transactions we can rebuild from..
+     * Seriously.
+     *
+     * There might be a bug here, because there will be a gap between the request being accepted, and getting here
+     *
+     * A pretty large gap too
+     * So there will still be room for failure
+     * But still, run transactions first
+     *
+     * Also, there is recursive object pointers here..
+     */
+    protected function runTransactionBuild()
+    {
+        $this->request->transaction = new Transaction($this->request); /* Write the transaction record to disk */
+    }
+
+    /**
      * All validation for the request should live here
      */
     protected function runValidate()
     {
         Validate::run($this->request);
+    }
+    
+    
+
+    /**
+     * Okay once we get here it is safe to destroy the transaction record for this request
+     */
+    protected function runTransactionDestroy()
+    {
+        $this->request->transaction->destroy(); /* Unlink the transaction file */
+        unset($this->request->transaction); /* Destroy the pointer in memory */
     }
 
     /**
