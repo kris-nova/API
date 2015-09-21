@@ -2,6 +2,7 @@
 namespace API\src\Rest;
 
 use API\src\Error\Error;
+use API\src\Request\Request;
 
 /**
  *
@@ -16,6 +17,19 @@ use API\src\Error\Error;
  */
 class Body
 {
+
+    static public function addBody(Request &$request)
+    {
+        $request->type = static::getType();
+        switch ($request->type) {
+            case t_json:
+                $request->body = json_decode(static::getBody(), 1);
+                break;
+            case t_xml:
+                Error::throwInternalException('XML is not yet supported - see future release');
+                break;
+        }
+    }
 
     /**
      * Will return the body of the request

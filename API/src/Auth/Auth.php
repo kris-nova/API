@@ -13,6 +13,14 @@ use API\src\Request\Request;
  */
 class Auth
 {
+    /**
+     * Will attempt to authenticate a request
+     * 
+     * @param Request $request
+     */
+    static public function login(Request $request){
+        //
+    }
 
     /**
      * Logic for authenticating API requests

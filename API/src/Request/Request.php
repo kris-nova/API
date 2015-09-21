@@ -110,8 +110,7 @@ class Request
         $this->id = uniqid(); /* Lets give this request a unique ID */
         $this->protocol = Protocols::getProtocol(); /* HTTP(s) */
         $this->verb = Verbs::getVerb(); /* How are we sending this request? */
-        $this->body = Body::getBody(); /* If the request has a body, we better get it */
-        $this->type = Body::getType(); /* I wonder what type of body this is */
+        Body::addBody($this); /*First adaption - will add the body type and content to the object */
         $this->headers = Header::getHeaderArray(); /* Get the headers, if we have them */
         $this->status = s_new; /* New request */
         // /* Transactions are handled in Process */

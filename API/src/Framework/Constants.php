@@ -73,3 +73,18 @@ define('r_success', 200);
 define('i_emergency', 900);
 define('i_error', 901);
 
+/******************************************************************************
+ * [sx]  Property Suffix
+*
+* All data properties should be defined with a type
+*/
+define('sx_int',  1);   /* signed integers */
+define('sx_bool', 2);   /* boolean values */
+define('sx_str',  3);   /* string values */
+define('sx_arr',  4);   /* array values */
+define('sx_obj',  5);   /* object pointers */
+define('sx_amt',  6);   /* amount (money) values */
+define('sx_dbl',  7);   /* double value */
+define('sx_lng',  8);   /* long values */
+
+
