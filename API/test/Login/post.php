@@ -5,7 +5,7 @@
  */
 
 /* Closing slashes are important here */
-$url = 'http://localhost/Auth/Login/';
+$url = 'http://localhost/Auth/Login/OA1/';
 
 /* init */
 $ch = curl_init();
