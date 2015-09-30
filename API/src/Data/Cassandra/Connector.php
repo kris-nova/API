@@ -8,12 +8,15 @@ use evseevnn\Cassandra\Database;
 class Connector
 {
 
-    public function __construct($host = 'localhost')
+    public function __construct($host = 'localhost', $port = '9201')
     {
         $this->host = $host;
-        $nodes = array($host);
-        $database = new Database($nodes);
+        $this->port = $port;
+        $nodes = array($host.':'.$port);
+        $database = new Database($nodes, 'ks');
+        $results = $database->connect();
         print_r($database);
+        print_r($results);
         die;
     }
 }
