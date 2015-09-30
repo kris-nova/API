@@ -1,0 +1,5 @@
+{
+	"require": {
+	        "evseevnn/php-cassandra-binary": "dev-master"
+	    }
+}

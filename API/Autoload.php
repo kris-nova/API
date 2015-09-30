@@ -8,6 +8,16 @@ require_once __DIR__ . '/src/Framework/Functions.php';
 require_once __DIR__ . '/src/Framework/Constants.php';
 
 /**
+ * Composer magic
+ */
+$composerAutoload = __DIR__.'/../vendor/autoload.php';
+if(file_exists($composerAutoload)){
+    require_once $composerAutoload;
+}else{
+    die('Please run composer to install dependencies!'.PHP_EOL);
+}
+
+/**
  *
  * The main Autoloader that ties all the things together
  *

@@ -49,29 +49,6 @@ yum install -y mod_php
 echo '...done'
 
 ##
-# Install PHP 7 Cassandra Driver
-#
-# Here be dragons
-#
-echo '--- Installing PHP 7 - PDO Cassandra Driver ---'
-cd /usr/local/src
-sudo yum -y install libevent-devel zlib-devel openssl-devel
-rpm -ivh /workspace/API/Install/Thrift/libthrift*.rpm
-rpm -ivh /workspace/API/Install/Thrift/libthrift-devel*.rpm
-
-cd /usr/local/src	
-ln -s /usr/local/bin/thrift /usr/bin/thrift
-git clone "https://github.com/Orange-OpenSource/YACassandraPDO.git"
-cd YACassandraPDO
-./configure
-make
-make install
-echo '...done'
-
-
-
-
-##
 # Install PHPUnit
 # Rule number 76
 #
