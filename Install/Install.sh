@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-
+hostname API
 ###############################################################################
 #
 # API [API.git] Provision Shell Script
 #
 #				..Kris
 ###
-
+export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin"
 PHP_TARBALL="php-7.0.0RC3.tar.gz"
 PHP_TARBALL_URL="https://downloads.php.net/~ab/$PHP_TARBALL"
 
@@ -24,15 +24,15 @@ echo '...done'
 #
 echo '--- Installing dependencies ---'
 yum install -y gcc gcc-c++ screen vim nano unzip curl wget man git strace emacs
+yum install kernel-devel-$(uname -r) kernel-headers-$(uname -r) dkms -y #fix for guest additions centos7.x
+/etc/init.d/vboxadd setup
 echo '...done'
 
 ##
 # Install PHP 7
 #
-# Here be dragons
-#
 echo '--- Installing PHP 7 ---'
-
+yum install -y php-devel
 if [[ -n $(php -i | grep phpinfo) ]]; then
 	echo 'PHP Already Installed!'
 else
@@ -47,6 +47,29 @@ else
 fi
 yum install -y mod_php
 echo '...done'
+
+##
+# Install PHP 7 Cassandra Driver
+#
+# Here be dragons
+#
+echo '--- Installing PHP 7 - PDO Cassandra Driver ---'
+cd /usr/local/src
+sudo yum -y install libevent-devel zlib-devel openssl-devel
+rpm -ivh /workspace/API/Install/Thrift/libthrift*.rpm
+rpm -ivh /workspace/API/Install/Thrift/libthrift-devel*.rpm
+
+cd /usr/local/src	
+ln -s /usr/local/bin/thrift /usr/bin/thrift
+git clone "https://github.com/Orange-OpenSource/YACassandraPDO.git"
+cd YACassandraPDO
+./configure
+make
+make install
+echo '...done'
+
+
+
 
 ##
 # Install PHPUnit
