@@ -24,9 +24,4 @@ class Schema
             throw new ApiException('Missing json schema file', r_server);
         }
     }
-
-    static public function validateRequest($request)
-    {
-        //
-    }
 }

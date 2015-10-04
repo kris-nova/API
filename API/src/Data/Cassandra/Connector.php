@@ -122,31 +122,37 @@ class Connector
      */
     public function upsert(Request $request)
     {
-        $query = "SELECT * FROM $request->keyspace.$request->table WHERE s_id = '$request->id';";
+        $query = "";
         $results = $this->query($query);
         return $results;
-            
     }
-    
-    public function insert(Request $request){
-        //
+
+    public function insert(Request $request)
+    {
+        $query = "";
+        $results = $this->query($query);
+        return $results;
     }
-    
+
     /**
      * Will update a record in the database, makes the assumption this exists
-     * 
-     * @param Request $request
+     *
+     * @param Request $request            
      */
-    public function update (Request $request){
-      //   
+    public function update(Request $request)
+    {
+        $query = "";
+        $results = $this->query($query);
+        return $results;
     }
-    
+
     /**
-     * 
-     * @param Request $request
+     *
+     * @param Request $request            
      * @return Cassandra\Rows
      */
-    public function get(Request $request){
+    public function get(Request $request)
+    {
         $query = "SELECT * FROM $request->keyspace.$request->table WHERE s_id = '$request->id';";
         $results = $this->query($query);
         return $results;
