@@ -1,11 +1,7 @@
 <?php
 namespace API;
 
-/**
- * PHP Settings
- */
-date_default_timezone_set('GMT');
-
+use API\src\Config\Config;
 /**
  * Framework magic
  */
@@ -15,11 +11,11 @@ require_once __DIR__ . '/src/Framework/Constants.php';
 /**
  * Composer magic
  */
-$composerAutoload = __DIR__.'/../vendor/autoload.php';
-if(file_exists($composerAutoload)){
+$composerAutoload = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($composerAutoload)) {
     require_once $composerAutoload;
-}else{
-    die('Please run composer to install dependencies!'.PHP_EOL);
+} else {
+    die('Please run composer to install dependencies!' . PHP_EOL);
 }
 
 /**
@@ -87,6 +83,7 @@ class Autoloader
             $this,
             'autoload'
         ));
+        $this->phpSettings();
     }
 
     /**
@@ -113,9 +110,19 @@ class Autoloader
             return true;
         } else {
             /* We might want to make this better */
-            die('Invalid filename ' . $class . '. Epic failure in Autoloader' . PHP_EOL);
+            // die('Invalid filename ' . $class . '. Epic failure in Autoloader' . PHP_EOL);
             return false;
         }
+    }
+
+    /**
+     * All PHP settings are interpretted here
+     */
+    protected function phpSettings()
+    {
+        date_default_timezone_set('GMT');
+        ini_set("log_errors", Config::getConfig('LogErrors'));
+        ini_set("error_log", Config::getConfig('LoggerDirectory').'/'.Config::getConfig('ErrorLogFile').date('Y-m-d'));
     }
 }
 

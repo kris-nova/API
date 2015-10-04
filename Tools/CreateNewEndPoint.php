@@ -59,6 +59,16 @@ class CreateNewEndPoint
         @mkdir(dirname($srcFileToWrite), '0644', 1);
         file_put_contents($srcFileToWrite, $srcContent);
         
+        /* Write table.cql */
+        echo 'Writing default table.cql..' . PHP_EOL;
+        $table = strtolower($endpoint);
+        $table = str_replace('\\', '_', $table);
+        $table = strtolower($exp[0]).'.'.$table;
+        $tableContents = file_get_contents(__DIR__. '/DefaultContent/table.cql');
+        $tableContents = str_replace('<<TABLE>>', $table, $tableContents);
+        $tableFileToWrite = dirname($srcFileToWrite).'/'.$class.'.cql';
+        file_put_contents($tableFileToWrite, $tableContents);
+        
         /* All done! */
         echo 'Done..' . PHP_EOL;
     }

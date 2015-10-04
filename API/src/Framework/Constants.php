@@ -57,12 +57,14 @@ define('p_https', 1);
  * [r]  Response Codes
  * 
  * Request response codes
+ * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
  */
 define('r_invalid', 400);
 define('r_unauthorized', 401);
 define('r_forbidden', 403);
 define('r_missing', 404);
 define('r_success', 200);
+define('r_server', 500);
 
 
 /******************************************************************************

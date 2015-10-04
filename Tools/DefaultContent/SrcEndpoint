@@ -10,11 +10,6 @@ class <<CLASS>> extends Endpoints
 	
     public $request;
 
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
     public function get()
     {
         Error::throwApiException('`GET` operations are not currently supported for the endpoint '.$this->request->endpoint, r_missing);

@@ -4,6 +4,9 @@ namespace API\src\Endpoints;
 use API\src\Endpoints\EndpointsInterface;
 use API\src\Request\Request;
 use API\src\Error\Error;
+use API\src\Config\Config;
+use API\src\Data\Cassandra\Connector;
+use API\src\Error\Exceptions\ApiException;
 
 /**
  * All API Endpoints *MUST* extend this
@@ -24,6 +27,12 @@ class Endpoints implements EndpointsInterface
     public $request;
 
     /**
+     *
+     * @var Connector
+     */
+    public $cassandra;
+
+    /**
      * We always need our request object
      *
      * @param Request $request            
@@ -31,11 +40,16 @@ class Endpoints implements EndpointsInterface
     public function __construct(Request $request)
     {
         $this->request = $request;
+        $this->cassandra = new Connector(Config::getConfig('CassandraNodeString'), (int) Config::getConfig('CassandraPort'));
+        $this->cassandra->connect();
+        if (Config::getConfig('AutoCreateTables')) {
+            $this->createTable();
+        }
     }
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \API\src\Endpoints\EndpointsInterface::get()
      */
     public function get()
@@ -45,7 +59,7 @@ class Endpoints implements EndpointsInterface
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \API\src\Endpoints\EndpointsInterface::post()
      */
     public function post()
@@ -55,7 +69,7 @@ class Endpoints implements EndpointsInterface
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \API\src\Endpoints\EndpointsInterface::put()
      */
     public function put()
@@ -65,7 +79,7 @@ class Endpoints implements EndpointsInterface
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \API\src\Endpoints\EndpointsInterface::delete()
      */
     public function delete()
@@ -99,11 +113,42 @@ class Endpoints implements EndpointsInterface
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \API\src\Endpoints\EndpointsInterface::getResponse()
      */
     public function getResponse()
     {
         // Here be dragons
+    }
+
+    /**
+     */
+    protected function createTable()
+    {
+        $endpoint = $this->request->endpoint;
+        $keyspace = $this->request->keyspace;
+        $this->cassandra->createKeyspace($keyspace);
+        $createTableQuery = $this->getCreateTableQuery();
+        $this->cassandra = new Connector(Config::getConfig('CassandraNodeString'), (int) Config::getConfig('CassandraPort'));
+        $this->cassandra->connect($keyspace);
+        $this->cassandra->query($createTableQuery);
+    }
+
+    /**
+     * Used to fetch the query on file to create the table
+     *
+     * @throws ApiException
+     * @return string
+     */
+    protected function getCreateTableQuery()
+    {
+        $endpoint = $this->request->endpoint;
+        $tableCql = __DIR__ . '/' . $endpoint . '.cql';
+        if (file_exists($tableCql)) {
+            $tableQuery = file_get_contents($tableCql);
+            return $tableQuery;
+        } else {
+            throw new ApiException('Unable to create table - missing table.cql file', r_server);
+        }
     }
 }

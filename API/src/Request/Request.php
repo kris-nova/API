@@ -96,6 +96,13 @@ class Request
     public $endpoint = null;
 
     /**
+     * The keyspace for this endpoint
+     *
+     * @var string
+     */
+    public $keyspace = null;
+
+    /**
      * This will build the request
      *
      * Basically we need to scrape very particular data out of PHP and the binaries existing memory load
@@ -110,12 +117,14 @@ class Request
         $this->id = uniqid(); /* Lets give this request a unique ID */
         $this->protocol = Protocols::getProtocol(); /* HTTP(s) */
         $this->verb = Verbs::getVerb(); /* How are we sending this request? */
-        Body::addBody($this); /*First adaption - will add the body type and content to the object */
+        Body::addBody($this); /* First adaption - will add the body type and content to the object */
         $this->headers = Header::getHeaderArray(); /* Get the headers, if we have them */
         $this->status = s_new; /* New request */
         // /* Transactions are handled in Process */
         $this->isAuthenticated = Auth::isAuthenticated();
         $this->endpoint = Endpoint::getEndpoint();
+        $exp = explode('/', $this->endpoint);
+        $this->keyspace = $exp[0];
     }
 
     /**

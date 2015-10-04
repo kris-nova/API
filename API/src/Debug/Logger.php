@@ -14,8 +14,6 @@ use API\src\Config\Config;
 class Logger
 {
 
-    const lOGFILE = 'api';
-
     public static $write = true;
 
     public static $output = true;
@@ -183,7 +181,7 @@ class Logger
         if (static::$logLevel == -1 || (static::$logLevel & $level)) 
         {
             $date = date('Y-m-d');
-            $logfile = Config::getConfig('LoggerDirectory') . '/' . static::lOGFILE . $date;
+            $logfile = Config::getConfig('LoggerDirectory') . '/' . Config::getConfig('LoggerFile') . $date;
             if (! file_exists(dirname($logfile))) {
                 mkdir(dirname($logfile), '0775', true);
             }
