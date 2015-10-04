@@ -2,6 +2,11 @@
 namespace API;
 
 /**
+ * PHP Settings
+ */
+date_default_timezone_set('GMT');
+
+/**
  * Framework magic
  */
 require_once __DIR__ . '/src/Framework/Functions.php';

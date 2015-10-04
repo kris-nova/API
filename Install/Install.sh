@@ -29,24 +29,44 @@ yum install kernel-devel-$(uname -r) kernel-headers-$(uname -r) dkms -y #fix for
 echo '...done'
 
 ##
-# Install PHP 7
+# Install PHP
+# This will add the custom repo and install php
 #
-echo '--- Installing PHP 7 ---'
-yum install -y php-devel
-if [[ -n $(php -i | grep phpinfo) ]]; then
-	echo 'PHP Already Installed!'
+echo '--- Installing PHP ---'
+if [[ -n $(yum repolist | grep webtatic) ]]; then
+	echo '[Webtatic Repository already installed]'
 else
-	yum install -y libxml2 libxml2-devel
-	cd /usr/local/src
-	wget $PHP_TARBALL_URL
-	tar -xzf $PHP_TARBALL
-	cd php*
-	./configure
-	make
-	make install
+	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+XDEBUGCONF=$(cat <<EOF
+	zend_extension=/usr/lib64/php/modules/xdebug.so
+	xdebug.profiler_enable = 1
+	xdebug.remote_enable = 1
+	xdebug.remote_connect_back = 1
+EOF
+)
+	echo "${XDEBUGCONF}" > /etc/php.d/xdebug.ini
 fi
-yum install -y mod_php
+yum install -y php56w php56w-cli php56w-devel php56w-opcache php56w-pdo php56w-mysql php56w-xml php56w-soap php56w-mcrypt php56w-pecl-apcu php56w-pecl-xdebug php56w-posix
+yum install -y mod_php #Needed for Apache
 echo '...done'
+
+##
+# Install Cassandra Driver
+#
+# Here be dragons
+#
+cd /usr/local/src
+yum install -y gmp gmp-devel
+wget http://downloads.datastax.com/cpp-driver/centos/7/cassandra-cpp-driver-2.1.0-1.el7.centos.amd64.rpm #CPP Driver
+wget http://downloads.datastax.com/cpp-driver/centos/7/cassandra-cpp-driver-devel-2.1.0-1.el7.centos.amd64.rpm #CPP Driver Libraries
+wget http://downloads.datastax.com/cpp-driver/centos/7/libuv-1.7.4-1.el7.centos.amd64.rpm #Libuv
+wget http://downloads.datastax.com/cpp-driver/centos/7/libuv-devel-1.7.4-1.el7.centos.amd64.rpm #Libuv devel
+rpm -ivh cassandra-cpp-driver-2.1.0-1.el7.centos.amd64.rpm
+rpm -ivh cassandra-cpp-driver-devel-2.1.0-1.el7.centos.amd64.rpm
+rpm -ivh libuv-1.7.4-1.el7.centos.amd64.rpm
+rpm -ivh libuv-devel-1.7.4-1.el7.centos.amd64.rpm
+pecl install cassandra -y
 
 ##
 # Install PHPUnit
