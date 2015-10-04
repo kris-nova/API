@@ -95,7 +95,7 @@ class Connector
     }
 
     /**
-     * Will create a new kespace in the configured cluster
+     * Will create a new keyspace in the configured cluster
      *
      * @param string $keyspace            
      * @param string $class            
@@ -122,23 +122,33 @@ class Connector
      */
     public function upsert(Request $request)
     {
-        $existing = $this->get($request);
+        $query = "SELECT * FROM $request->keyspace.$request->table WHERE s_id = '$request->id';";
+        $results = $this->query($query);
+        return $results;
+            
     }
     
     public function insert(Request $request){
         //
     }
     
+    /**
+     * Will update a record in the database, makes the assumption this exists
+     * 
+     * @param Request $request
+     */
     public function update (Request $request){
-     //   
+      //   
     }
     
+    /**
+     * 
+     * @param Request $request
+     * @return Cassandra\Rows
+     */
     public function get(Request $request){
-        $query = 'SELECT * from '.$request->table.' WHERE "s_id" = "'.$request->id.'";';
-        print_r($query);
-        die;
+        $query = "SELECT * FROM $request->keyspace.$request->table WHERE s_id = '$request->id';";
         $results = $this->query($query);
-        print_r($results);
-        die;
+        return $results;
     }
 }

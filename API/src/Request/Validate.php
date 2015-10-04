@@ -2,6 +2,7 @@
 namespace API\src\Request;
 
 use API\src\Error\Error;
+use API\src\Data\Schema;
 
 /**
  * Request validation
@@ -32,6 +33,29 @@ class Validate
     }
 
     /**
+     * Will validate the request body against the defined schema
+     */
+    public function validateRequestSchema()
+    {
+        $body = $this->request->body;
+        foreach ($this->request->schema as $name => $options) {
+            // We only care properties where required = 1
+            if ($options['required'] == 1) {
+                $found = false;
+                foreach ($body as $key => $value) {
+                    if ($name == $key) {
+                        $found = true;
+                        break;
+                    }
+                }
+                if (! $found) {
+                    $this->fail('Missing required property ' . $name . ' [' . $options['type'] . ']');
+                }
+            }
+        }
+    }
+
+    /**
      *
      * @var Request;
      */
@@ -48,7 +72,7 @@ class Validate
 
     /**
      * Validation failure
-     * 
+     *
      * @param string $message            
      */
     protected function fail($message = null)

@@ -7,6 +7,8 @@ use API\src\Error\Error;
 use API\src\Config\Config;
 use API\src\Data\Cassandra\Connector;
 use API\src\Error\Exceptions\ApiException;
+use API\src\Debug\Logger;
+use API\src\Data\Schema;
 
 /**
  * All API Endpoints *MUST* extend this
@@ -131,6 +133,7 @@ class Endpoints implements EndpointsInterface
         $createTableQuery = $this->getCreateTableQuery();
         $this->cassandra = new Connector(Config::getConfig('CassandraNodeString'), (int) Config::getConfig('CassandraPort'));
         $this->cassandra->connect($keyspace);
+        Logger::debug('Create Table Query : ' . $createTableQuery);
         $this->cassandra->query($createTableQuery);
     }
 
@@ -142,13 +145,31 @@ class Endpoints implements EndpointsInterface
      */
     protected function getCreateTableQuery()
     {
-        $endpoint = $this->request->endpoint;
-        $tableCql = __DIR__ . '/' . $endpoint . '.cql';
-        if (file_exists($tableCql)) {
-            $tableQuery = file_get_contents($tableCql);
-            return $tableQuery;
-        } else {
-            throw new ApiException('Unable to create table - missing table.cql file', r_server);
+        $schema = $this->request->schema;
+        $fields = '';
+        $total = count($array);
+        $i = 0;
+        foreach ($schema as $name => $options) {
+            $i ++;
+            $field = '';
+            $field .= $name;
+            $field .= ' ' . $options['type'];
+            if ($options['primary']) {
+                $field .= ' PRIMARY KEY';
+            }
+            if ($i !== $total) {
+                $field .= ',';
+            }
+            $fields .= $field;
         }
+        $query = 'create table ' . $this->request->table . '(' . $fields . ');';
+        return $query;
     }
 }
+
+// CREATE TABLE tablename(
+// column1 name datatype PRIMARYKEY,
+// column2 name data type,
+// column3 name data type,
+// PRIMARY KEY (column1)
+// )

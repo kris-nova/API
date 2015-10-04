@@ -1,0 +1,8 @@
+{
+	"s_id": { "type": "text", "primary": 1, "required": -1 },
+	"create_time": { "type": "timestamp", "primary": 0, "required": -1 },
+	"update_time": { "type": "timestamp", "primary": 0, "required": -1 },
+	"username_text": { "type": "text", "primary": 0, "required": 1 },
+	"password_text": { "type": "text", "primary": 0, "required": 1 },
+	"email_text": { "type": "text", "primary": 0, "required": 1 }
+}

@@ -9,6 +9,7 @@ use API\src\Rest\Body;
 use API\src\Rest\Header;
 use API\src\Auth\Auth;
 use API\src\Rest\Endpoint;
+use API\src\Data\Schema;
 
 /**
  * All HTTP(s) requests should be transformed into this
@@ -117,6 +118,13 @@ class Request
     public $table = null;
 
     /**
+     * Schema for the request
+     *
+     * @var array
+     */
+    public $schema = null;
+
+    /**
      * This will build the request
      *
      * Basically we need to scrape very particular data out of PHP and the binaries existing memory load
@@ -136,11 +144,12 @@ class Request
         $this->headers = Header::getHeaderArray(); /* Get the headers, if we have them */
         $this->status = s_new; /* New request */
         // /* Transactions are handled in Process */
-        $this->isAuthenticated = Auth::isAuthenticated();
-        $this->endpoint = Endpoint::getEndpoint();
+        $this->isAuthenticated = Auth::isAuthenticated(); /* Lets us know if we are authenticated */
+        $this->endpoint = Endpoint::getEndpoint(); /* Endpoint for the request */
         $exp = explode('/', $this->endpoint);
-        $this->keyspace = strtolower($exp[0]);
-        $this->table = strtolower($this->keyspace.'.'.str_replace('/', '_', $this->endpoint));
+        $this->keyspace = strtolower($exp[0]); /* Cassandra keyspace for this request */
+        $this->table = strtolower(str_replace('/', '_', $this->endpoint)); /* Table from endpoint */
+        $this->schema = Schema::getSchemaArray($this); /* Schema map */
     }
 
     /**
