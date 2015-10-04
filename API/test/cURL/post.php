@@ -5,12 +5,16 @@
  */
 
 /* Closing slashes are important here */
-$url = 'http://localhost/Auth/Login/';
+$url = 'http://localhost/User/Auth/Login/';
 
 /* init */
 $ch = curl_init();
 
-$fields = "{}";
+$body = array(
+    'user' => 'kris'
+);
+
+$fields = json_encode($body, JSON_PRETTY_PRINT);
 
 /* POST options only! */
 curl_setopt_array($ch, array(
@@ -25,4 +29,4 @@ $resp = curl_exec($ch);
 curl_close($ch);
 
 print_r($resp);
-die();
+die(1);

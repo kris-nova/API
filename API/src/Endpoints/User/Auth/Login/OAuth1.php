@@ -1,17 +1,11 @@
 <?php
-namespace API\src\Endpoints\User\Auth;
+namespace API\src\Endpoints\User\Auth\Login;
 
 use API\src\Endpoints\Endpoints;
 use API\src\Request\Request;
 
-/**
- * The login endpoint
- *
- *
- * Oct 3, 2015
- * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
- */
-class Login extends Endpoints
+
+class OAuth1 extends Endpoints
 {
 	
     public $request;
@@ -26,14 +20,9 @@ class Login extends Endpoints
         Error::throwApiException('`GET` operations are not currently supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
-    /**
-     * Will attempt to create a new user
-     * 
-     * @see \API\src\Endpoints\Endpoints::post()
-     */
     public function post()
     {
-        die('we got here');
+        Error::throwApiException('`POST` operations are not currently supported for the endpoint '.$this->request->endpoint, r_missing);
     }
 
     public function put()

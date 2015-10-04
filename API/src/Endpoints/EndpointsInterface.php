@@ -25,28 +25,28 @@ interface EndpointsInterface
     public function __construct(Request $request);
 
     /**
-     * get
+     * get (Read)
      *
      * Used to parse get requests
      */
     public function get();
 
     /**
-     * post
+     * post (Create)
      *
      * Used to parse post requests
      */
     public function post();
 
     /**
-     * put
+     * put (Update)
      *
      * Used to parse put requests
      */
     public function put();
 
     /**
-     * delete
+     * delete (Delete)
      *
      * Used to parse delete requests
      */
