@@ -11,7 +11,8 @@ $url = 'http://localhost/User/Auth/Login/';
 $ch = curl_init();
 
 $body = array(
-    'user' => 'kris'
+    'username_txt' => 'kris',
+    'password_txt' => 'girl'
 );
 
 $fields = json_encode($body, JSON_PRETTY_PRINT);

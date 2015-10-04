@@ -1,10 +1,8 @@
 <?php
 namespace API\src\Auth;
-
 use API\src\Request\Request;
-
 /**
- * Future Auth class
+ * Authentication class
  *
  *
  * Sep 20, 2015
@@ -21,7 +19,6 @@ class Auth
     static public function login(Request $request){
         //
     }
-
     /**
      * Logic for authenticating API requests
      *
@@ -32,6 +29,6 @@ class Auth
      */
     static public function isAuthenticated()
     {
-        return true; /* This needs a meeting with the gang */
+        return false; /* This needs a meeting with the gang */
     }
 }

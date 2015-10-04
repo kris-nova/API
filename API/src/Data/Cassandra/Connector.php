@@ -6,6 +6,7 @@ use \Cassandra as Cassandra;
 use \Cassandra\SimpleStatement;
 use API\src\Debug\LogException;
 use API\src\Error\Exceptions\ApiException;
+use API\src\Request\Request;
 
 /**
  * Connector class for connection to a cassandra node
@@ -30,8 +31,8 @@ class Connector
      * Where and what port
      *
      * @param string $host            
-     * @param number $port    
-     * @param bool $throw        
+     * @param number $port            
+     * @param bool $throw            
      * @throws ApiException
      */
     public function __construct($host = 'localhost', $port = 9042, $throw = true)
@@ -52,8 +53,8 @@ class Connector
     /**
      * Connect!
      *
-     * @param string $keyspace  
-     * @param bool $throw          
+     * @param string $keyspace            
+     * @param bool $throw            
      * @throws ApiException
      */
     public function connect($keyspace = null, $throw = true)
@@ -98,9 +99,9 @@ class Connector
      *
      * @param string $keyspace            
      * @param string $class            
-     * @param number $replicationFactor  
-     * @param bool $throw         
-     * @throws ApiException 
+     * @param number $replicationFactor            
+     * @param bool $throw            
+     * @throws ApiException
      */
     public function createKeyspace($keyspace, $class = 'SimpleStrategy', $replicationFactor = 1, $throw = false)
     {
@@ -112,5 +113,32 @@ class Connector
                 throw new ApiException('Create Keyspace Failure', r_server);
             }
         }
+    }
+
+    /**
+     * Will upsert a record in the database with an accurate updated / created timestamp
+     *
+     * @param Request $request            
+     */
+    public function upsert(Request $request)
+    {
+        $existing = $this->get($request);
+    }
+    
+    public function insert(Request $request){
+        //
+    }
+    
+    public function update (Request $request){
+     //   
+    }
+    
+    public function get(Request $request){
+        $query = 'SELECT * from '.$request->table.' WHERE "s_id" = "'.$request->id.'";';
+        print_r($query);
+        die;
+        $results = $this->query($query);
+        print_r($results);
+        die;
     }
 }

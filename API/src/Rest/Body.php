@@ -29,6 +29,9 @@ class Body
                 Error::throwInternalException('XML is not yet supported - see future release');
                 break;
         }
+        if(isset($request->body['s_id'])){
+            $request->id = $request->body['s_id'];
+        }
     }
 
     /**

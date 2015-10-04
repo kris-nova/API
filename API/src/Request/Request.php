@@ -32,6 +32,13 @@ class Request
     public $id = null;
 
     /**
+     * The start timestamp for this request
+     *
+     * @var string
+     */
+    public $startTime = null;
+
+    /**
      * Enum for which protocol the request came in on
      *
      * @var int
@@ -103,6 +110,13 @@ class Request
     public $keyspace = null;
 
     /**
+     * The table for this request
+     *
+     * @var string
+     */
+    public $table = null;
+
+    /**
      * This will build the request
      *
      * Basically we need to scrape very particular data out of PHP and the binaries existing memory load
@@ -114,6 +128,7 @@ class Request
      */
     public function __construct()
     {
+        $this->startTime = date('Y-m-d H:i:s');
         $this->id = uniqid(); /* Lets give this request a unique ID */
         $this->protocol = Protocols::getProtocol(); /* HTTP(s) */
         $this->verb = Verbs::getVerb(); /* How are we sending this request? */
@@ -124,7 +139,8 @@ class Request
         $this->isAuthenticated = Auth::isAuthenticated();
         $this->endpoint = Endpoint::getEndpoint();
         $exp = explode('/', $this->endpoint);
-        $this->keyspace = $exp[0];
+        $this->keyspace = strtolower($exp[0]);
+        $this->table = strtolower($this->keyspace.'.'.str_replace('/', '_', $this->endpoint));
     }
 
     /**
@@ -133,5 +149,24 @@ class Request
     public function process()
     {
         Process::run($this);
+    }
+
+    /**
+     *
+     * @param string $key            
+     * @param string $required            
+     * @param string $default            
+     * @throws ApiException
+     * @return unknown
+     */
+    public function get($key, $required = true, $default = null)
+    {
+        if (isset($this->body[$key])) {
+            return $this->body[$key];
+        }
+        if ($required) {
+            throw new ApiException('Missing request key `' . $key . '`', r_invalid);
+        }
+        return $default;
     }
 }

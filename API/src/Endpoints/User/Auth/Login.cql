@@ -1,5 +1,8 @@
 CREATE TABLE user.user_auth_login (
-s_Id text,
+s_id text,
 create_Time timestamp,
 update_Time timestamp,
-PRIMARY KEY (s_Id));
+username_text text,
+password_text text,
+email_text text
+PRIMARY KEY (s_id));

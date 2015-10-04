@@ -59,11 +59,34 @@ define('p_https', 1);
  * Request response codes
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
  */
+/**
+ * Invalid request from client
+ */
 define('r_invalid', 400);
+
+/**
+ * Unauthorized request from client
+ */
 define('r_unauthorized', 401);
+
+/**
+ * Permission denied
+ */
 define('r_forbidden', 403);
+
+/**
+ * Missing resource
+ */
 define('r_missing', 404);
+
+/**
+ * Win
+ */
 define('r_success', 200);
+
+/**
+ * Server Error
+ */
 define('r_server', 500);
 
 

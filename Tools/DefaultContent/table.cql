@@ -1,5 +1,5 @@
 CREATE TABLE <<TABLE>> (
-s_Id text,
-create_Time timestamp,
-update_Time timestamp,
-PRIMARY KEY (s_Id));
+s_id text,
+create_time timestamp,
+update_time timestamp,
+PRIMARY KEY (s_id));
