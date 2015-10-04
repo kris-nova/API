@@ -3,6 +3,7 @@ namespace API\src\Endpoints\User\Auth;
 
 use API\src\Endpoints\Endpoints;
 use API\src\Request\Request;
+use API\src\Error\Exceptions\ApiException;
 
 class Login extends Endpoints
 {
@@ -19,7 +20,14 @@ class Login extends Endpoints
      */
     public function post()
     {
-        $this->cassandra->upsert($this->request);
+        $this->request->body['password_text'] = md5($this->request->body['password_text']); //Encrypt the password
+        $this->request->id = md5($this->request->body['email_text']); //What is our ID?
+        if($this->cassandra->exists($this->request)){
+            throw new ApiException('User exists', r_forbidden);
+        }
+        $result = $this->cassandra->insert($this->request);
+        $this->request->response->body = 'User added';
+        $this->request->response->code = r_success;
     }
 
     public function put()

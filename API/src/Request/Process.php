@@ -2,6 +2,7 @@
 namespace API\src\Request;
 
 use API\src\Error\Exceptions\ValidationException;
+use API\src\Response\Response;
 
 /**
  *

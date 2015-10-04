@@ -16,9 +16,9 @@ class Logger
 
     public static $write = true;
 
-    public static $output = true;
+    public static $output = false;
 
-    public static $logLevel = - 1;
+    public static $logLevel = -1;
 
     const EMERGENCY = 1;
 

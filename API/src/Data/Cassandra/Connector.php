@@ -23,8 +23,16 @@ class Connector
 
     protected $port;
 
+    /**
+     *
+     * @var \Cassandra\Cluster
+     */
     protected $cluster = null;
 
+    /**
+     *
+     * @var Cassandra\Session
+     */
     protected $session = null;
 
     /**
@@ -75,7 +83,7 @@ class Connector
      * @param string $queryString            
      * @param bool $throw            
      * @throws ApiException
-     * @return unknown
+     * @return Cassandra\Rows
      */
     public function query($queryString, $throw = false)
     {
@@ -119,29 +127,58 @@ class Connector
      * Will upsert a record in the database with an accurate updated / created timestamp
      *
      * @param Request $request            
+     * @return Cassandra\Rows
      */
     public function upsert(Request $request)
     {
-        $query = "";
-        $results = $this->query($query);
-        return $results;
-    }
-
-    public function insert(Request $request)
-    {
-        $query = "";
+        $body = $request->body;
+        $values = '';
+        $columns = '';
+        if (! isset($body['s_id'])) {
+            // New request
+            $body['create_time'] = $request->startTime;
+            $body['s_id'] = $request->id;
+        }
+        $body['update_time'] = $request->startTime;
+        foreach ($body as $column => $value) {
+            //
+            $columns .= $column . ', ';
+            $values .= "'" . $value . "', ";
+        }
+        $columns = substr($columns, 0, - 2);
+        $values = substr($values, 0, - 2);
+        $query = "INSERT INTO $request->keyspace.$request->table ($columns) VALUES ($values) IF NOT EXISTS;";
+        Logger::info('Upsert Query : ' . $query);
         $results = $this->query($query);
         return $results;
     }
 
     /**
-     * Will update a record in the database, makes the assumption this exists
+     * Will insert a record in the database with an accurate updated / created timestamp
      *
      * @param Request $request            
+     * @return Cassandra\Rows
      */
-    public function update(Request $request)
+    public function insert(Request $request)
     {
-        $query = "";
+        $body = $request->body;
+        $values = '';
+        $columns = '';
+        if (! isset($body['s_id'])) {
+            // New request
+            $body['create_time'] = $request->startTime;
+            $body['s_id'] = $request->id;
+        }
+        $body['update_time'] = $request->startTime;
+        foreach ($body as $column => $value) {
+            //
+            $columns .= $column . ', ';
+            $values .= "'" . $value . "', ";
+        }
+        $columns = substr($columns, 0, - 2);
+        $values = substr($values, 0, - 2);
+        $query = "INSERT INTO $request->keyspace.$request->table ($columns) VALUES ($values);";
+        Logger::info('Insert Query : ' . $query);
         $results = $this->query($query);
         return $results;
     }
@@ -156,5 +193,18 @@ class Connector
         $query = "SELECT * FROM $request->keyspace.$request->table WHERE s_id = '$request->id';";
         $results = $this->query($query);
         return $results;
+    }
+
+    /**
+     * Will let us know if the record allready exists or not
+     *
+     * @param Request $request            
+     * @return bool
+     */
+    public function exists(Request $request)
+    {
+        $query = "SELECT s_id FROM $request->keyspace.$request->table WHERE s_id = '$request->id';";
+        $results = $this->query($query);
+        return $results->count();
     }
 }

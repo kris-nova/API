@@ -10,6 +10,7 @@ use API\src\Rest\Header;
 use API\src\Auth\Auth;
 use API\src\Rest\Endpoint;
 use API\src\Data\Schema;
+use API\src\Response\Response;
 
 /**
  * All HTTP(s) requests should be transformed into this
@@ -123,6 +124,13 @@ class Request
      * @var array
      */
     public $schema = null;
+    
+    /**
+     * The response object
+     * 
+     * @var Response
+     */
+    public $response = null;
 
     /**
      * This will build the request
@@ -136,11 +144,16 @@ class Request
      */
     public function __construct()
     {
-        $this->startTime = date('Y-m-d H:i:s');
-        $this->id = uniqid(); /* Lets give this request a unique ID */
+        $this->startTime = new \Cassandra\Timestamp();
         $this->protocol = Protocols::getProtocol(); /* HTTP(s) */
         $this->verb = Verbs::getVerb(); /* How are we sending this request? */
         Body::addBody($this); /* First adaption - will add the body type and content to the object */
+        /* If an ID is set, use it for the request, otherwise generate a new one */
+        if (isset($this->body['s_id'])) {
+            $this->id = $this->body['s_id'];
+        } else {
+            $this->id = uniqid();
+        }
         $this->headers = Header::getHeaderArray(); /* Get the headers, if we have them */
         $this->status = s_new; /* New request */
         // /* Transactions are handled in Process */
@@ -150,6 +163,7 @@ class Request
         $this->keyspace = strtolower($exp[0]); /* Cassandra keyspace for this request */
         $this->table = strtolower(str_replace('/', '_', $this->endpoint)); /* Table from endpoint */
         $this->schema = Schema::getSchemaArray($this); /* Schema map */
+        $this->response = new Response();
     }
 
     /**

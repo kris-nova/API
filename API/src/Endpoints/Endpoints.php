@@ -147,7 +147,7 @@ class Endpoints implements EndpointsInterface
     {
         $schema = $this->request->schema;
         $fields = '';
-        $total = count($array);
+        $total = count($schema);
         $i = 0;
         foreach ($schema as $name => $options) {
             $i ++;

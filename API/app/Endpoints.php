@@ -5,6 +5,7 @@ require_once __DIR__ . '/../Autoload.php';
 
 use API\src\Request\Request;
 use \Exception as Exception;
+use API\src\Response\Response;
 
 /**
  * All requests are born here
@@ -38,11 +39,13 @@ class Endpoints
         try {
             $this->request = new Request();
             $this->request->process();
-            print_r($this->request);
-            die;
+            http_response_code($this->request->response->code);
+            print_r(json_encode($this->request->response));
         } catch (Exception $e) {
-            //
-            print_r($e);
+            $response = new Response();
+            $response->body = $e->getMessage();
+            $response->code = $e->getCode();
+            print_r(json_encode($response));
         }
     }
 

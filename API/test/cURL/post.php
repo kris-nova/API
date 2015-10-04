@@ -30,5 +30,4 @@ $resp = curl_exec($ch);
 
 curl_close($ch);
 
-print_r($resp);
-die(1);
+print_r(json_decode($resp));
