@@ -26,7 +26,7 @@ class Validate
     public function validateNotNullProperties()
     {
         foreach (get_object_vars($this->request) as $key => $value) {
-            if (is_null($value)) {
+            if (($value)) {
                 $this->fail('Missing value for `' . $key . '` in request');
             }
         }

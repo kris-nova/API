@@ -1,6 +1,6 @@
 <?php
 /**
- * Simple cURL GET request
+ * Simple cURL POST request
  * 
  */
 
@@ -11,9 +11,9 @@ $url = 'http://localhost/User/Auth/Login/';
 $ch = curl_init();
 
 $body = array(
-    'username_text' => 'kris',
-    'password_text' => 'girl',
-    'email_text' => 'kris@soundeavor.com'
+    'username_text' => '',
+    'password_text' => '',
+    'email_text' => ''
 );
 
 $fields = json_encode($body, JSON_PRETTY_PRINT);
