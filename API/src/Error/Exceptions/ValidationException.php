@@ -30,7 +30,7 @@ class ValidationException extends Exception
     {
         $this->message = $message;
         $this->failureMethod = $failureMethod;
-        $this->code = r_invalid;
+        $this->code = r_;
         $this->previous = null;
     }
 }
