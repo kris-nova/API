@@ -22,7 +22,7 @@ class Facebook extends Endpoints
      * Validate the access token
      * Create a long lived access token
      * Return the token and login URL to the consumer for reference
-     * We are now logged in with facebook, and can start scraping user data
+     * We are now logged in with facebook, and can start scraping user data!! W00t w00t!
      */
     public function get()
     {
@@ -37,6 +37,9 @@ class Facebook extends Endpoints
             $accessToken = $helper->getAccessToken();
             // Prompt for creds
             if (empty($accessToken)) {
+                /*
+                 * @TODO We might need to add more permissons here
+                 */
                 $permissions = array(
                     'email'
                 );
@@ -63,6 +66,9 @@ class Facebook extends Endpoints
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             LogException::e($e);
             throw new ApiException($e->getMessage(), r_server);
+        }
+        if (empty($accessToken)) {
+            throw new ApiException('Invalid Facebook Login', r_server);
         }
         $body['loginUrl'] = $loginUrl;
         $body['facebookAccessToken'] = $accessToken->getValue();
