@@ -22,7 +22,7 @@ class Facebook extends Endpoints
      * Validate the access token
      * Create a long lived access token
      * Return the token and login URL to the consumer for reference
-     * We are now logged in with facebook, and can start scraping user data!! W00t w00t!
+     * We are now logged in with facebook, and can start scraping user data
      */
     public function get()
     {

@@ -3,6 +3,7 @@ namespace API\src\Endpoints\<<INC>>;
 
 use API\src\Endpoints\Endpoints;
 use API\src\Request\Request;
+use API\src\Error\Error;
 
 
 class <<CLASS>> extends Endpoints
