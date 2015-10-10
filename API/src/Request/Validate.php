@@ -3,6 +3,7 @@ namespace API\src\Request;
 
 use API\src\Error\Error;
 use API\src\Data\Schema;
+use API\src\Error\Exceptions\ApiException;
 
 /**
  * Request validation
@@ -20,17 +21,17 @@ use API\src\Data\Schema;
 class Validate
 {
 
-    /**
-     * Will check the request object for null class properties
-     */
-    public function validateNotNullProperties()
-    {
-        foreach (get_object_vars($this->request) as $key => $value) {
-            if (($value)) {
-                $this->fail('Missing value for `' . $key . '` in request');
-            }
-        }
-    }
+//     /**
+//      * Will check the request object for null class properties
+//      */
+//     public function validateNotNullProperties()
+//     {
+//         foreach (get_object_vars($this->request) as $key => $value) {
+//             if (($value)) {
+//                 $this->fail('Missing value for `' . $key . '` in request');
+//             }
+//         }
+//     }
 
     /**
      * Will validate the request body against the defined schema

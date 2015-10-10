@@ -18,7 +18,7 @@ class Logger
 
     public static $output = false;
 
-    public static $logLevel = -1;
+    public static $logLevel = - 1;
 
     const EMERGENCY = 1;
 
@@ -178,8 +178,7 @@ class Logger
      */
     static protected function write($line, $level)
     {
-        if (static::$logLevel == -1 || (static::$logLevel & $level)) 
-        {
+        if (static::$logLevel == - 1 || (static::$logLevel & $level)) {
             $date = date('Y-m-d');
             $logfile = Config::getConfig('LoggerDirectory') . '/' . Config::getConfig('LoggerFile') . $date;
             if (! file_exists(dirname($logfile))) {
@@ -201,24 +200,34 @@ class Logger
         switch ($level) {
             case static::EMERGENCY:
                 $level = 'emergency';
+                break;
             case static::ALERT:
                 $level = 'alert';
+                break;
             case static::CRITICAL:
                 $level = 'critical';
+                break;
             case static::ALERT:
                 $level = 'alert';
+                break;
             case static::CRITICAL:
                 $level = 'critical';
+                break;
             case static::ERROR:
                 $level = 'error';
+                break;
             case static::WARNING:
                 $level = 'warning';
+                break;
             case static::NOTICE:
                 $level = 'notice';
+                break;
             case static::INFO:
                 $level = 'info';
+                break;
             case static::DEBUG:
                 $level = 'debug';
+                break;
         }
         if (is_array($message) || is_object($message)) {
             $message = print_r($message, true);

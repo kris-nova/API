@@ -5,15 +5,15 @@
  */
 
 /* Closing slashes are important here */
-$url = 'http://localhost/User/Auth/Login/';
+$url = 'http://localhost/User/Auth/Login/Facebook/';
 
 /* init */
 $ch = curl_init();
 
+/*
+ * Send an empty get re 
+ */
 $body = array(
-    'username_text' => '',
-    'password_text' => '',
-    'email_text' => ''
 );
 
 $fields = json_encode($body, JSON_PRETTY_PRINT);

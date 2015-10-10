@@ -6,6 +6,7 @@ require_once __DIR__ . '/../Autoload.php';
 use API\src\Request\Request;
 use \Exception as Exception;
 use API\src\Response\Response;
+use API\src\Server\Session;
 
 /**
  * All requests are born here
@@ -30,7 +31,7 @@ class Endpoints
      * @var Request
      */
     protected $request = null;
-
+    
     /**
      * Will run the request
      */

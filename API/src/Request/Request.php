@@ -11,6 +11,7 @@ use API\src\Auth\Auth;
 use API\src\Rest\Endpoint;
 use API\src\Data\Schema;
 use API\src\Response\Response;
+use API\src\Server\Session;
 
 /**
  * All HTTP(s) requests should be transformed into this
@@ -124,13 +125,19 @@ class Request
      * @var array
      */
     public $schema = null;
-    
+
     /**
      * The response object
-     * 
+     *
      * @var Response
      */
     public $response = null;
+
+    /**
+     *
+     * @var Session
+     */
+    public $session = null;
 
     /**
      * This will build the request
@@ -149,7 +156,7 @@ class Request
         $this->verb = Verbs::getVerb(); /* How are we sending this request? */
         Body::addBody($this); /* First adaption - will add the body type and content to the object */
         /* If an ID is set, use it for the request, otherwise generate a new one */
-        if (isset($this->body['s_id'])) {
+                if (isset($this->body['s_id'])) {
             $this->id = $this->body['s_id'];
         } else {
             $this->id = uniqid();
@@ -164,6 +171,8 @@ class Request
         $this->table = strtolower(str_replace('/', '_', $this->endpoint)); /* Table from endpoint */
         $this->schema = Schema::getSchemaArray($this); /* Schema map */
         $this->response = new Response();
+        $this->session = new Session();
+        $this->session->start();
     }
 
     /**

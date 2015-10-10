@@ -41,15 +41,16 @@ class Error
     {
         throw new InternalException($message, $code, $previous);
     }
-    
+
     /**
      * Will throw a Validation Exception
-     * 
-     * @param string $failingMethod
-     * @param string $message
+     *
+     * @param string $failingMethod            
+     * @param string $message            
      */
     static public function throwValidationException($failingMethod, $message = null)
     {
         throw new ValidationException($failingMethod, $message);
     }
 }
+

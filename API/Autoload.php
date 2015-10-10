@@ -15,7 +15,7 @@ $composerAutoload = __DIR__ . '/../vendor/autoload.php';
 if (file_exists($composerAutoload)) {
     require_once $composerAutoload;
 } else {
-    die('Please run composer to install dependencies!' . PHP_EOL);
+    die('Please run composer to install dependencies' . PHP_EOL);
 }
 
 /**
@@ -121,8 +121,12 @@ class Autoloader
     protected function phpSettings()
     {
         date_default_timezone_set('GMT');
-        ini_set("log_errors", Config::getConfig('LogErrors'));
-        ini_set("error_log", Config::getConfig('LoggerDirectory').'/'.Config::getConfig('ErrorLogFile').date('Y-m-d'));
+        if (Config::getConfig('debug') == 1) {
+            error_reporting(- 1);
+        } else {
+            ini_set("log_errors", Config::getConfig('LogErrors'));
+            ini_set("error_log", Config::getConfig('LoggerDirectory') . '/' . Config::getConfig('ErrorLogFile') . date('Y-m-d'));
+        }
     }
 }
 
