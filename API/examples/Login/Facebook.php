@@ -10,9 +10,6 @@ $url = 'http://localhost/User/Auth/Login/Facebook/';
 /* init */
 $ch = curl_init();
 
-/*
- * Send an empty get re 
- */
 $body = array(
 );
 
@@ -22,8 +19,6 @@ $fields = json_encode($body, JSON_PRETTY_PRINT);
 curl_setopt_array($ch, array(
     CURLOPT_RETURNTRANSFER => 1,
     CURLOPT_URL => $url,
-    CURLOPT_POST => true,
-    CURLOPT_POSTFIELDS => $fields
 ));
 
 $resp = curl_exec($ch);
