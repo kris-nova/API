@@ -2,6 +2,8 @@
     "require": {
         "hybridauth/hybridauth": "3.0.0.*@dev",
         "facebook/php-sdk-v4" : "~5.0",
-        "njasm/soundcloud": "dev-master"
+        "njasm/soundcloud": "dev-master",
+        "google/apiclient": "1.0.*@beta",
+        "jwilsson/spotify-web-api-php": "0.9.*"
     }
 }

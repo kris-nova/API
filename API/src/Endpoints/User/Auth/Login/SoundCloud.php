@@ -7,6 +7,13 @@ use API\src\Error\Error;
 use Njasm\Soundcloud\SoundcloudFacade;
 use API\src\Config\Config;
 
+/**
+ * Used to Authenticate with SoundCloud
+ *
+ *
+ * Oct 10, 2015
+ * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
+ */
 class SoundCloud extends Endpoints
 {
 

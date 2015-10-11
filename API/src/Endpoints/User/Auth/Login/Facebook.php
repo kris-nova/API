@@ -10,6 +10,14 @@ use API\src\Debug\Logger;
 use API\src\Debug\LogException;
 use API\src\Error\Exceptions\ApiException;
 
+/**
+ * Used to Authenticate with facebook
+ *
+ *
+ * Oct 10, 2015
+ * 
+ * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
+ */
 class Facebook extends Endpoints
 {
 
