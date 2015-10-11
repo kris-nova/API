@@ -34,7 +34,6 @@ class Facebook extends Endpoints
      */
     public function get()
     {
-        Logger::info($this->request->body);
         $fb = new Fb([
             'app_id' => Config::getConfig('FacebookAppId'),
             'app_secret' => Config::getConfig('FacebookSecret'),
@@ -46,10 +45,13 @@ class Facebook extends Endpoints
             // Prompt for creds
             if (empty($accessToken)) {
                 /*
-                 * @TODO We might need to add more permissons here
+                 * Permissions are hard coded here
+                 * More reference
+                 * https://developers.facebook.com/docs/facebook-login/permissions/v2.5
                  */
                 $permissions = array(
-                    'email'
+                    'email',
+                    'user_actions.music'
                 );
                 $loginUrl = $helper->getLoginUrl('http://' . Config::getConfig('Hostname') . '/User/Auth/Login/Facebook/index.php', $permissions);
                 header("Location: $loginUrl"); // Forward the request to facebook for login
@@ -78,8 +80,12 @@ class Facebook extends Endpoints
         if (empty($accessToken)) {
             throw new ApiException('Invalid Facebook Login', r_server);
         }
-        $body['loginUrl'] = $loginUrl;
-        $body['facebookAccessToken'] = $accessToken->getValue();
+        $fb->setDefaultAccessToken($accessToken->getValue());
+        $meResponse = $fb->get('/me');
+        $facebookBody = $meResponse->getDecodedBody();
+        $body['facebookUserId_text'] = $facebookBody['id'];
+        $body['facebookName_text'] = $facebookBody['name'];
+        $body['facebookAccessToken_text'] = $accessToken->getValue();
         $this->request->response->body = $body;
         $this->request->response->code = r_success;
         return $this->request;

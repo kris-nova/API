@@ -1,0 +1,9 @@
+{
+	"s_id": { "type": "text", "primary": 1, "required": -1 },
+	"create_time": { "type": "timestamp", "primary": 0, "required": -1 },
+	"update_time": { "type": "timestamp", "primary": 0, "required": -1 },
+	"facebookAccessToken_text": { "type": "text", "primary": 0, "required": 1 },
+	"facebookUserId_text": { "type": "text", "primary": 0, "required": 1 },
+	"facebookFields_text": { "type": "text", "primary": 0, "required": 0 },
+	"facebookEdge_text": { "type": "text", "primary": 0, "required": 0 }	
+}

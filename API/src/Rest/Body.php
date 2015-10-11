@@ -41,7 +41,10 @@ class Body
     {
         switch (Verbs::getVerb()) {
             case v_get:
-                return - 1;
+                if(empty($_GET)){
+                    return '{}';
+                }
+                return json_encode($_GET);
             case v_post:
                 return file_get_contents('php://input');
             case v_put:
@@ -58,9 +61,9 @@ class Body
      */
     static public function getType()
     {
-        if (Verbs::getVerb() == v_get) {
-            return - 1;
-        }
+//         if (Verbs::getVerb() == v_get) {
+//             return - 1;
+//         }
         $body = Body::getBody();
         $possibleJson = json_decode($body);
         if ($possibleJson) {
