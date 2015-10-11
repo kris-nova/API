@@ -68,6 +68,8 @@ class CreateNewEndPoint
         $tableFileToWrite = dirname($srcFileToWrite).'/'.$class.'.json';
         file_put_contents($tableFileToWrite, $tableContents);
         
+        /* Create example files */
+        
         /* All done! */
         echo 'Done..' . PHP_EOL;
     }
