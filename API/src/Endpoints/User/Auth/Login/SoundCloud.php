@@ -12,6 +12,7 @@ use API\src\Config\Config;
  *
  *
  * Oct 10, 2015
+ * 
  * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
  */
 class SoundCloud extends Endpoints
@@ -36,9 +37,12 @@ class SoundCloud extends Endpoints
             $token = $facade->codeForToken($code);
             $rBody = $token->bodyArray();
             $accessToken = $rBody['access_token'];
-            $clientId = $facade->getAuthClientID();
+            $me = $facade->get('/me')->request();
+            $scBody = $me->bodyArray();
+            $clientId = $scBody['id'];
             $body['soundcloudAccessToken_text'] = $accessToken;
-            $body['soundcloudClientId_text'] = $clientId;
+            $body['soundcloudUserId_text'] = $clientId;
+            $body['soundcloudName_text'] = $scBody['full_name'];
             $this->request->response->body = $body;
             $this->request->response->code = r_success;
             return $this->request;
