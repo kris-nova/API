@@ -35,8 +35,10 @@ class SoundCloud extends Endpoints
             $code = $_GET['code'];
             $token = $facade->codeForToken($code);
             $rBody = $token->bodyArray();
-            $body['soundcloudAccessToken'] = $rBody['access_token'];
-            $body['loginUrl'] = $url;
+            $accessToken = $rBody['access_token'];
+            $clientId = $facade->getAuthClientID();
+            $body['soundcloudAccessToken_text'] = $accessToken;
+            $body['soundcloudClientId_text'] = $clientId;
             $this->request->response->body = $body;
             $this->request->response->code = r_success;
             return $this->request;
