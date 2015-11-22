@@ -11,6 +11,11 @@ PHP_TARBALL="php-7.0.0RC3.tar.gz"
 PHP_TARBALL_URL="https://downloads.php.net/~ab/$PHP_TARBALL"
 
 ##
+# Flip this to turn off automatic Apache install (EC2)
+#
+INSTALL_APACHE=1
+
+##
 # Update our system first
 #
 echo '--- Updating ---'
@@ -47,7 +52,7 @@ EOF
 )
 	echo "${XDEBUGCONF}" > /etc/php.d/xdebug.ini
 fi
-yum install -y php56w php56w-cli php56w-mbstring php56w-devel php56w-opcache php56w-pdo php56w-mysql php56w-xml php56w-soap php56w-mcrypt php56w-pecl-apcu php56w-pecl-xdebug php56w-posix
+yum install -y php56w php56w-cli php56w-mbstring php56w-devel php56w-opcache php56w-pdo php56w-mysql php56w-xml php56w-soap php56w-mcrypt php56w-pecl-apcu php56w-pecl-xdebug php56w-posix php56-devel php-pear
 yum install -y mod_php #Needed for Apache
 echo '...done'
 
