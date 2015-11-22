@@ -15,3 +15,4 @@ rpm -ivh cassandra-cpp-driver-2.1.0-1.el7.centos.amd64.rpm
 rpm -ivh cassandra-cpp-driver-devel-2.1.0-1.el7.centos.amd64.rpm
 rpm -ivh libuv-1.7.4-1.el7.centos.amd64.rpm
 rpm -ivh libuv-devel-1.7.4-1.el7.centos.amd64.rpm
+pecl install cassandra -y
