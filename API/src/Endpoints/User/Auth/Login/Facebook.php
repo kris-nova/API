@@ -53,7 +53,7 @@ class Facebook extends Endpoints
                     'email',
                     'user_actions.music'
                 );
-                $loginUrl = $helper->getLoginUrl('http://' . Config::getConfig('Hostname') . '/User/Auth/Login/Facebook/index.php', $permissions);
+                $loginUrl = $helper->getLoginUrl('https://' . Config::getConfig('Hostname') . '/User/Auth/Login/Facebook/index.php', $permissions);
                 header("Location: $loginUrl"); // Forward the request to facebook for login
             } else {
                 // Valid access token!
