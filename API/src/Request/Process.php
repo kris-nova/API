@@ -20,7 +20,7 @@ use API\src\Response\Response;
  *
  * Sep 19, 2015
  *
- * @author Kris Nova <kris@nivenly.com> github.com/kris-nova
+ * @author Kris Childress <kris@nivenly.com> github.com/kris-nova
  */
 class Process
 {
