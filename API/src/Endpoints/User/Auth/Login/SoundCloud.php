@@ -29,7 +29,7 @@ class SoundCloud extends Endpoints
      */
     public function get()
     {
-        $callback = 'http://' . Config::getConfig('Hostname') . '/User/Auth/Login/SoundCloud/index.php';
+        $callback = 'https://' . Config::getConfig('Hostname') . '/User/Auth/Login/SoundCloud/index.php';
         $facade = new SoundcloudFacade(Config::getConfig('SoundCloudAppId'), Config::getConfig('SoundCloudSecret'), $callback);
         $url = $facade->getAuthUrl();
         if (isset($_GET['code'])) {
