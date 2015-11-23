@@ -20,7 +20,7 @@ class Spotify extends Endpoints
     public function get()
     {
         $session = new Session(Config::getConfig('SpotifyAppId'), Config::getConfig('SpotifySecret'));
-        $callback = 'https://'.Config::getConfig('hostname').'/User/Auth/Login/Spotify/index.php';
+        $callback = 'https://'.Config::getConfig('Hostname').'/User/Auth/Login/Spotify/index.php';
         $session->setRedirectUri($callback);
         $url = $session->getAuthorizeUrl();
         if (!isset($_GET['code'])) {
